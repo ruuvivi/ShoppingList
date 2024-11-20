@@ -1,0 +1,88 @@
+body {
+  font-family: Courier New  , monospace;
+  border: 5px solid #2ea44f;
+  border-radius: 6px;
+}
+
+h1{
+  color: #2ea44f;
+  background-color: #fff;
+  border: 5px solid #2ea44f;
+  border-radius: 6px;
+}
+
+h2 {
+  color: #f13030;
+}
+
+
+button {
+  margin:5px;
+  transition-duration: 0.4s;
+  background-color: #fff;
+  border: 1px solid #2ea44f;
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #2ea44f;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+button:hover {
+  background-color: #2ea44f;
+  color: #fff;
+}
+
+input {
+  background-color: #fff;
+  border: 1px solid #2ea44f;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #2ea44f;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+input::placeholder {
+  color: #f13030;
+  border: #f13030;
+}
+
+.notification {
+  color: green;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}

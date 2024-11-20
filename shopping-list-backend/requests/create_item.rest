@@ -1,0 +1,6 @@
+POST http://localhost:3001/api/items
+Content-Type: application/json
+
+{
+    "item": "caca"
+}
