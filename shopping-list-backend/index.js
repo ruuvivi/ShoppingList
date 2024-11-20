@@ -22,9 +22,9 @@ app.use(requestLogger)
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
-  if (error.name === 'CastError') {
+  if (error.item === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } else if (error.name === 'ValidationError') {
+  } else if (error.item === 'ValidationError') {
     return response.status(400).json({ error: error.message })
   }
 
@@ -65,7 +65,7 @@ const itemExists = (item) => {
 }
 
 app.get('/api/items/:id', (request, response, next) => {
-  Person.findById(request.params.id).then(item => {
+  Item.findById(request.params.id).then(item => {
     if (item) {
       response.json(item.toJSON)
     } else {
@@ -105,7 +105,7 @@ app.post('/api/items', (request, response, next) => {
     })
   }
 
-  if (nameExists(body.item)) {
+  if (itemExists(body.item)) {
     return response.status(400).json({
       error: 'item must be new to the list'
     })
