@@ -150,12 +150,13 @@ const App = () => {
   const [itemsS, setItemsS] = useState([]);
   const [itemsK, setItemsK] = useState([]);
   const [itemsLIDL, setItemsLIDL] = useState([]);
-  const [newItem, setNewItem] = useState('');
-
+  const [newItemS, setNewItemS] = useState('');
+  const [newItemK, setNewItemK] = useState('');
+  const [newItemLIDL, setNewItemLIDL] = useState('');
   const [showFound, setShowFound] = useState('');
-  const [notificationMessage, setNotificationMessage] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  
   useEffect(() => {
     itemService
       .getAll()
@@ -168,90 +169,70 @@ const App = () => {
 
   const addItemS = (event) => {
     event.preventDefault();
-    const itemObject = {
-      item: newItem,
-    };
-    if (itemsS.some(existing => existing.item.toLowerCase() === newItem.toLocaleLowerCase())) {
-      changeItemS(itemObject)
-        setNewItem('');
+    const itemObject = { item: newItemS };
+    if (itemsS.some((existing) => existing.item.toLowerCase() === newItemS.toLowerCase())) {
+      changeItemS(itemObject);
+      setNewItemS('');
     } else {
       itemService
-      .create(itemObject)
-      .then(returnedItem => {
-        setItemsS(itemsS.concat(returnedItem))
-        setNewItem('')
-        console.log('new item', itemObject)
-        setNotificationMessage(`Added ${returnedItem.item}`);
-        setTimeout(() => {
-          setNotificationMessage(null);
-        }, 5000);
-      })
-      .catch(error => {
-        setErrorMessage(error.response.data.error)
-        setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
-      })
+        .create(itemObject)
+        .then((returnedItem) => {
+          setItemsS(itemsS.concat(returnedItem));
+          setNewItemS('');
+          setNotificationMessage(`Added ${returnedItem.item}`);
+          setTimeout(() => setNotificationMessage(null), 5000);
+        })
+        .catch((error) => {
+          setErrorMessage(error.response.data.error);
+          setTimeout(() => setErrorMessage(null), 5000);
+        });
     }
   };
 
   const addItemK = (event) => {
     event.preventDefault();
-    const itemObject = {
-      item: newItem,
-    };
-    if (itemsK.some(existing => existing.item.toLowerCase() === newItem.toLocaleLowerCase())) {
-      changeItemK(itemObject)
-        setNewItem('');
+    const itemObject = { item: newItemK };
+    if (itemsK.some((existing) => existing.item.toLowerCase() === newItemK.toLowerCase())) {
+      changeItemK(itemObject);
+      setNewItemK('');
     } else {
       itemService
-      .create(itemObject)
-      .then(returnedItem => {
-        setItemsK(itemsK.concat(returnedItem))
-        setNewItem('')
-        console.log('new item', itemObject)
-        setNotificationMessage(`Added ${returnedItem.item}`);
-        setTimeout(() => {
-          setNotificationMessage(null);
-        }, 5000);
-      })
-      .catch(error => {
-        setErrorMessage(error.response.data.error)
-        setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
-      })
+        .create(itemObject)
+        .then((returnedItem) => {
+          setItemsK(itemsK.concat(returnedItem));
+          setNewItemK('');
+          setNotificationMessage(`Added ${returnedItem.item}`);
+          setTimeout(() => setNotificationMessage(null), 5000);
+        })
+        .catch((error) => {
+          setErrorMessage(error.response.data.error);
+          setTimeout(() => setErrorMessage(null), 5000);
+        });
     }
   };
 
   const addItemLIDL = (event) => {
     event.preventDefault();
-    const itemObject = {
-      item: newItem,
-    };
-    if (itemsLIDL.some(existing => existing.item.toLowerCase() === newItem.toLocaleLowerCase())) {
-      changeItemLIDL(itemObject)
-        setNewItem('');
+    const itemObject = { item: newItemLIDL };
+    if (itemsLIDL.some((existing) => existing.item.toLowerCase() === newItemLIDL.toLowerCase())) {
+      changeItemLIDL(itemObject);
+      setNewItemLIDL('');
     } else {
       itemService
-      .create(itemObject)
-      .then(returnedItem => {
-        setItemsLIDL(itemsLIDL.concat(returnedItem))
-        setNewItem('')
-        console.log('new item', itemObject)
-        setNotificationMessage(`Added ${returnedItem.item}`);
-        setTimeout(() => {
-          setNotificationMessage(null);
-        }, 5000);
-      })
-      .catch(error => {
-        setErrorMessage(error.response.data.error)
-        setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
-      })
+        .create(itemObject)
+        .then((returnedItem) => {
+          setItemsLIDL(itemsLIDL.concat(returnedItem));
+          setNewItemLIDL('');
+          setNotificationMessage(`Added ${returnedItem.item}`);
+          setTimeout(() => setNotificationMessage(null), 5000);
+        })
+        .catch((error) => {
+          setErrorMessage(error.response.data.error);
+          setTimeout(() => setErrorMessage(null), 5000);
+        });
     }
   };
+
 
   const itemsToShowS = showFound
     ? itemsS.filter((item) =>
@@ -323,7 +304,7 @@ const App = () => {
           })
           .catch(error => {
             console.log(error)
-            setErrorMessage(`Information of ${deletedItemS.item} has already been removed from the server`)
+            setErrorMessage(`Information of ${deletedItemLIDL.item} has already been removed from the server`)
               setTimeout(() => {
                 setErrorMessage(null);
               }, 5000);
@@ -338,7 +319,7 @@ const App = () => {
       const itemS = itemsS.find(i => i.item.toLocaleLowerCase() === itemObject.item.toLocaleLowerCase())
       const changedItemS = { ... itemS, item: itemObject.item}
       if (changedItemS) {
-        if (window.confirm(`${newItem} is already added to shopping list, replace the old item with a new one?`)) {
+        if (window.confirm(`${newItemS} is already added to shopping list, replace the old item with a new one?`)) {
           itemService
             .update(changedItemS.id, changedItemS)
             .then(returnedItemS => {
@@ -361,7 +342,7 @@ const App = () => {
     const itemK = itemsK.find(i => i.item.toLocaleLowerCase() === itemObject.item.toLocaleLowerCase())
     const changedItemK = { ... itemK, item: itemObject.item}
     if (changedItemK) {
-      if (window.confirm(`${newItem} is already added to shopping list, replace the old item with a new one?`)) {
+      if (window.confirm(`${newItemK} is already added to shopping list, replace the old item with a new one?`)) {
         itemService
           .update(changedItemK.id, changedItemK)
           .then(returnedItemK => {
@@ -384,7 +365,7 @@ const changeItemLIDL = itemObject => {
   const itemLIDL = itemsLIDL.find(i => i.item.toLocaleLowerCase() === itemObject.item.toLocaleLowerCase())
   const changedItemLIDL = { ... itemLIDL, item: itemObject.item}
   if (changedItemLIDL) {
-    if (window.confirm(`${newItem} is already added to phonebook, replace the old number with a new one?`)) {
+    if (window.confirm(`${newItemLIDL} is already added to phonebook, replace the old number with a new one?`)) {
       itemService
         .update(changedItemLIDL.id, changedItemLIDL)
         .then(returnedItemLIDL => {
@@ -403,13 +384,22 @@ const changeItemLIDL = itemObject => {
 }
 }
 
-  const handleItemChange = (event) => {
-    setNewItem(event.target.value);
-  };
+const handleItemChangeS = (event) => {
+  setNewItemS(event.target.value);
+};
 
-  const handleFoundChange = (event) => {
-    setShowFound(event.target.value);
-  };
+const handleItemChangeK = (event) => {
+  setNewItemK(event.target.value);
+};
+
+const handleItemChangeLIDL = (event) => {
+  setNewItemLIDL(event.target.value);
+};
+
+const handleFoundChange = (event) => {
+  setShowFound(event.target.value);
+};
+
 
   const header = 'Shopping list';
 
@@ -421,39 +411,16 @@ const changeItemLIDL = itemObject => {
       <Filter showFound={showFound} handleFoundChange={handleFoundChange} />
 
       <SubHeader text="S-kaupat" />
-      <ItemsS
-      itemsToShowS={itemsToShowS}
-      deleteItemS={deleteItemS}
-      changeItemS={changeItemS}
-      />
-      <ItemFormS
-      addItemS={addItemS}
-      newItem={newItem}
-      handleItemChange={handleItemChange}
-      />
+      <ItemsS itemsToShowS={itemsS} deleteItemS={deleteItemS} changeItemS={changeItemS} />
+      <ItemFormS addItemS={addItemS} newItem={newItemS} handleItemChange={handleItemChangeS} />
+
       <SubHeader text="K-kaupat" />
-      <ItemsK
-      itemsToShowK={itemsToShowK}
-      deleteItemK={deleteItemK}
-      changeItemK={changeItemK}
-      />
-      <ItemFormK
-      addItemK={addItemK}
-      newItem={newItem}
-      handleItemChange={handleItemChange}
-      />
+      <ItemsK itemsToShowK={itemsK} deleteItemK={deleteItemK} changeItemK={changeItemK} />
+      <ItemFormK addItemK={addItemK} newItem={newItemK} handleItemChange={handleItemChangeK} />
 
       <SubHeader text="LIDL" />
-      <ItemsLIDL
-      itemsToShowLIDL={itemsToShowLIDL}
-      deleteItemLIDL={deleteItemLIDL}
-      changeItemLIDL={changeItemLIDL}
-      />
-      <ItemFormLIDL
-      addItemLIDL={addItemLIDL}
-      newItem={newItem}
-      handleItemChange={handleItemChange}
-      />
+      <ItemsLIDL itemsToShowLIDL={itemsLIDL} deleteItemLIDL={deleteItemLIDL} changeItemLIDL={changeItemLIDL} />
+      <ItemFormLIDL addItemLIDL={addItemLIDL} newItem={newItemLIDL} handleItemChange={handleItemChangeLIDL} />
     </div>
   );
 };
